@@ -1,6 +1,8 @@
 package com.example.EmployeeManagement.Entity;
 
-@Entity
+import jakarta.persistence.Entity;
+
+@Entity 
 public class Employee{
 
     private int id;
