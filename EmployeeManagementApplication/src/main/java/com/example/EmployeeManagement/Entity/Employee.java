@@ -1,5 +1,6 @@
 package com.example.EmployeeManagement.Entity;
 
+@Entity
 public class Employee{
 
     private int id;
