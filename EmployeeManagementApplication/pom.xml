@@ -9,10 +9,10 @@
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
 	<groupId>com.example.EmployeeManagement</groupId>
-	<artifactId>demo</artifactId>
+	<artifactId>EmployeeManagementApplication</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<name/>
-	<description/>
+	<name>EmployeeManagementApplication</name>
+	<description>Employee Management Application</description>
 	<url/>
 	<licenses>
 		<license/>
@@ -55,10 +55,17 @@
 			<artifactId>spring-boot-starter-webmvc-test</artifactId>
 			<scope>test</scope>
 		</dependency>
+		<!-- H2 Database -->
 		<dependency>
     		<groupId>com.h2database</groupId>
     		<artifactId>h2</artifactId>
    			<scope>runtime</scope>
+		</dependency>
+		<!-- H2 Database -->
+		<!-- H2 Web Console -->
+		<dependency>
+    		<groupId>org.springframework.boot</groupId>
+    		<artifactId>spring-boot-h2console</artifactId>
 		</dependency>
 	</dependencies>
 
