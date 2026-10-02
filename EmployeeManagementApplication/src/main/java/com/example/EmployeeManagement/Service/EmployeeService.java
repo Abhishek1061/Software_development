@@ -35,8 +35,8 @@ public class EmployeeService {
         employee.setDepartment(employeeDto.getDepartment());
         employee.setSalary(employeeDto.getSalary());
         Employee savedEmployee = employeeRepository.save(employee);
-        EmployeeResponseDto responseDto = new EmployeeResponseDto();
 
+        EmployeeResponseDto responseDto = new EmployeeResponseDto();
         responseDto.setId(savedEmployee.getId());
         responseDto.setName(savedEmployee.getName());
         responseDto.setEmail(savedEmployee.getEmail());
