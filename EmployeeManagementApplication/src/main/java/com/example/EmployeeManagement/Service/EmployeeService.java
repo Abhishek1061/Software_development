@@ -5,6 +5,8 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.example.EmployeeManagement.dto.EmployeeRequestDto;
+import com.example.EmployeeManagement.dto.EmployeeResponseDto;
 import com.example.EmployeeManagement.entity.Employee;
 import com.example.EmployeeManagement.repository.EmployeeRepository;
 
@@ -26,8 +28,21 @@ public class EmployeeService {
         return employeeRepository.findById(id).orElse(null);
     }
 
-    public Employee createEmployee(Employee employee) {
-        return employeeRepository.save(employee);
+    public EmployeeResponseDto createEmployee(EmployeeRequestDto employeeDto) {
+        Employee employee = new Employee();
+        employee.setName(employeeDto.getName());
+        employee.setEmail(employeeDto.getEmail());
+        employee.setDepartment(employeeDto.getDepartment());
+        employee.setSalary(employeeDto.getSalary());
+        Employee savedEmployee = employeeRepository.save(employee);
+        EmployeeResponseDto responseDto = new EmployeeResponseDto();
+
+        responseDto.setId(savedEmployee.getId());
+        responseDto.setName(savedEmployee.getName());
+        responseDto.setEmail(savedEmployee.getEmail());
+        responseDto.setDepartment(savedEmployee.getDepartment());
+        responseDto.setSalary(savedEmployee.getSalary());
+        return responseDto;
     }
 
     public Employee updateEmployee(Integer id, Employee employeeDetails){
