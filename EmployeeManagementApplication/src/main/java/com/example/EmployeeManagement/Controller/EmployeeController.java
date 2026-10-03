@@ -16,6 +16,8 @@ import com.example.EmployeeManagement.dto.EmployeeResponseDto;
 import com.example.EmployeeManagement.entity.Employee;
 import com.example.EmployeeManagement.service.EmployeeService;
 
+import jakarta.validation.Valid;
+
 @RestController 
 @RequestMapping("/api")
 public class EmployeeController {
@@ -37,7 +39,7 @@ public class EmployeeController {
     }
 
     @PostMapping("/employees")
-    public EmployeeResponseDto createEmployee(@RequestBody EmployeeRequestDto employee) {
+    public EmployeeResponseDto createEmployee(@RequestBody @Valid EmployeeRequestDto employee) {
         return employeeService.createEmployee(employee);
     }
 
