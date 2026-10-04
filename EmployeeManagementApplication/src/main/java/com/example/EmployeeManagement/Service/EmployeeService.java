@@ -7,6 +7,7 @@ import com.example.EmployeeManagement.dto.EmployeeRequestDto;
 import com.example.EmployeeManagement.dto.EmployeeResponseDto;
 import com.example.EmployeeManagement.entity.Employee;
 import com.example.EmployeeManagement.repository.EmployeeRepository;
+import com.example.EmployeeManagement.exceptions.ResourceNotFoundException;
 
 @Service 
 public class EmployeeService {    
@@ -23,7 +24,7 @@ public class EmployeeService {
     }
 
     public Employee getEmployeeById(Integer id) {
-        return employeeRepository.findById(id).orElse(null);
+        return employeeRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException("Employee not found with id: " + id));
     }
 
     public EmployeeResponseDto createEmployee(EmployeeRequestDto employeeDto) {
