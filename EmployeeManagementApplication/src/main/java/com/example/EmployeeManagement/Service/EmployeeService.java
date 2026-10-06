@@ -1,6 +1,8 @@
 package com.example.EmployeeManagement.service;
 
 import java.util.List;
+import java.util.stream.Collectors;
+
 import org.springframework.stereotype.Service;
 
 import com.example.EmployeeManagement.dto.EmployeeRequestDto;
@@ -9,29 +11,25 @@ import com.example.EmployeeManagement.entity.Employee;
 import com.example.EmployeeManagement.repository.EmployeeRepository;
 import com.example.EmployeeManagement.exceptions.ResourceNotFoundException;
 
-@Service 
-public class EmployeeService {    
-      
+@Service
+public class EmployeeService {
 
     private final EmployeeRepository employeeRepository;
 
-    public EmployeeService(EmployeeRepository employeeRepository){
-        this.employeeRepository =  employeeRepository;
+    public EmployeeService(EmployeeRepository employeeRepository) {
+        this.employeeRepository = employeeRepository;
     }
 
-    public List<Employee> getAllEmployees() {
-        return employeeRepository.findAll();
+    public List<EmployeeResponseDto> getAllEmployees() {
+        return employeeRepository.findAll().stream()
+                .map(this::mapToResponseDto)
+                .collect(Collectors.toList());
     }
 
     public EmployeeResponseDto getEmployeeById(Integer id) {
-        Employee employee = employeeRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException("Employee not found with id: " + id));
-        EmployeeResponseDto responseDto = new EmployeeResponseDto();
-        responseDto.setId(employee.getId());
-        responseDto.setName(employee.getName());
-        responseDto.setEmail(employee.getEmail());
-        responseDto.setDepartment(employee.getDepartment());
-        responseDto.setSalary(employee.getSalary());
-        return responseDto;
+        Employee employee = employeeRepository.findById(id)
+                .orElseThrow(() -> new ResourceNotFoundException("Employee not found with id: " + id));
+        return mapToResponseDto(employee);
     }
 
     public EmployeeResponseDto createEmployee(EmployeeRequestDto employeeDto) {
@@ -42,29 +40,36 @@ public class EmployeeService {
         employee.setSalary(employeeDto.getSalary());
         Employee savedEmployee = employeeRepository.save(employee);
 
-        EmployeeResponseDto responseDto = new EmployeeResponseDto();
-        responseDto.setId(savedEmployee.getId());
-        responseDto.setName(savedEmployee.getName());
-        responseDto.setEmail(savedEmployee.getEmail());
-        responseDto.setDepartment(savedEmployee.getDepartment());
-        responseDto.setSalary(savedEmployee.getSalary());
-        return responseDto;
+       return mapToResponseDto(savedEmployee);
     }
 
-    public Employee updateEmployee(Integer id, Employee employeeDetails){
-        Employee employee =  employeeRepository.findById(id).orElse(null);
-        if(employee != null){
+    public EmployeeResponseDto updateEmployee(Integer id, Employee employeeDetails) {
+        Employee employee = employeeRepository.findById(id).orElse(null);
+        if (employee != null) {
             employee.setName(employeeDetails.getName());
             employee.setEmail(employeeDetails.getEmail());
             employee.setDepartment(employeeDetails.getDepartment());
             employee.setSalary(employeeDetails.getSalary());
-            return employeeRepository.save(employee);
+            return mapToResponseDto(employeeRepository.save(employee));
         }
         return null;
     }
 
-    public void deleteEmployee(Integer id){
+    public void deleteEmployee(Integer id) {
         employeeRepository.deleteById(id);
+    }
+
+    private EmployeeResponseDto mapToResponseDto(Employee employee) {
+
+        EmployeeResponseDto dto = new EmployeeResponseDto();
+
+        dto.setId(employee.getId());
+        dto.setName(employee.getName());
+        dto.setEmail(employee.getEmail());
+        dto.setDepartment(employee.getDepartment());
+        dto.setSalary(employee.getSalary());
+
+        return dto;
     }
 
 }
