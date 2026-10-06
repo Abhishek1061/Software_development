@@ -42,7 +42,9 @@ public class EmployeeController {
 
     @PostMapping("/employees")
     public ResponseEntity<EmployeeResponseDto> createEmployee(@RequestBody @Valid EmployeeRequestDto employee) {
-        return new ResponseEntity<>(employeeService.createEmployee(employee), HttpStatus.CREATED);
+        return  ResponseEntity
+                    .status(HttpStatus.CREATED)
+                    .body(employeeService.createEmployee(employee));
     }
 
     @PutMapping("/employees/{id}")
