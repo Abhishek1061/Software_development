@@ -36,8 +36,8 @@ public class EmployeeController {
     }
 
     @GetMapping("/employees/{id}")
-    public Employee getEmployeeById(@PathVariable Integer id) {
-        return employeeService.getEmployeeById(id);
+    public ResponseEntity<EmployeeResponseDto> getEmployeeById(@PathVariable Integer id) {
+        return ResponseEntity.ok(employeeService.getEmployeeById(id));    
     }
 
     @PostMapping("/employees")

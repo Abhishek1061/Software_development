@@ -23,8 +23,15 @@ public class EmployeeService {
         return employeeRepository.findAll();
     }
 
-    public Employee getEmployeeById(Integer id) {
-        return employeeRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException("Employee not found with id: " + id));
+    public EmployeeResponseDto getEmployeeById(Integer id) {
+        Employee employee = employeeRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException("Employee not found with id: " + id));
+        EmployeeResponseDto responseDto = new EmployeeResponseDto();
+        responseDto.setId(employee.getId());
+        responseDto.setName(employee.getName());
+        responseDto.setEmail(employee.getEmail());
+        responseDto.setDepartment(employee.getDepartment());
+        responseDto.setSalary(employee.getSalary());
+        return responseDto;
     }
 
     public EmployeeResponseDto createEmployee(EmployeeRequestDto employeeDto) {
