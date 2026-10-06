@@ -43,16 +43,13 @@ public class EmployeeService {
        return mapToResponseDto(savedEmployee);
     }
 
-    public EmployeeResponseDto updateEmployee(Integer id, Employee employeeDetails) {
-        Employee employee = employeeRepository.findById(id).orElse(null);
-        if (employee != null) {
-            employee.setName(employeeDetails.getName());
-            employee.setEmail(employeeDetails.getEmail());
-            employee.setDepartment(employeeDetails.getDepartment());
-            employee.setSalary(employeeDetails.getSalary());
-            return mapToResponseDto(employeeRepository.save(employee));
-        }
-        return null;
+    public EmployeeResponseDto updateEmployee(Integer id, EmployeeRequestDto employeeDetails) {
+        Employee employee = employeeRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException("Employee not found with id: " + id));
+        employee.setName(employeeDetails.getName());
+        employee.setEmail(employeeDetails.getEmail());
+        employee.setDepartment(employeeDetails.getDepartment());
+        employee.setSalary(employeeDetails.getSalary());
+        return mapToResponseDto(employeeRepository.save(employee));
     }
 
     public void deleteEmployee(Integer id) {
