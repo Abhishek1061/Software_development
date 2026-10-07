@@ -39,7 +39,6 @@ public class EmployeeService {
         employee.setDepartment(employeeDto.getDepartment());
         employee.setSalary(employeeDto.getSalary());
         Employee savedEmployee = employeeRepository.save(employee);
-
        return mapToResponseDto(savedEmployee);
     }
 
