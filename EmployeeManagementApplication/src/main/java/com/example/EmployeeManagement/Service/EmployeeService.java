@@ -3,6 +3,8 @@ package com.example.EmployeeManagement.service;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
 import com.example.EmployeeManagement.dto.EmployeeRequestDto;
@@ -24,6 +26,11 @@ public class EmployeeService {
         return employeeRepository.findAll().stream()
                 .map(this::mapToResponseDto)
                 .collect(Collectors.toList());
+    }
+
+    public Page<EmployeeResponseDto> getAllEmployees(int page, int size) {
+        Page<Employee> employeePage = employeeRepository.findAll(PageRequest.of(page, size));
+        return employeePage.map(this::mapToResponseDto);
     }
 
     public EmployeeResponseDto getEmployeeById(Integer id) {
@@ -54,6 +61,7 @@ public class EmployeeService {
     public void deleteEmployee(Integer id) {
         employeeRepository.deleteById(id);
     }
+    
 
     private EmployeeResponseDto mapToResponseDto(Employee employee) {
 
