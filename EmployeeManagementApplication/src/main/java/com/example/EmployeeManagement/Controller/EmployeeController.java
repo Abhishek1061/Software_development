@@ -2,6 +2,7 @@ package com.example.EmployeeManagement.controller;
 
 import java.util.List;
 
+import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -11,11 +12,11 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.example.EmployeeManagement.dto.EmployeeRequestDto;
 import com.example.EmployeeManagement.dto.EmployeeResponseDto;
-import com.example.EmployeeManagement.entity.Employee;
 import com.example.EmployeeManagement.service.EmployeeService;
 
 import jakarta.validation.Valid;
@@ -33,6 +34,11 @@ public class EmployeeController {
     @GetMapping ("/employees")
     public ResponseEntity<List<EmployeeResponseDto>> getAllEmployees(){
         return ResponseEntity.ok(employeeService.getAllEmployees());
+    }
+
+    @GetMapping ("/employees")
+    public ResponseEntity<Page<EmployeeResponseDto>> getAllEmployees(@RequestParam int page, @RequestParam  int size){
+        return ResponseEntity.ok(employeeService.getAllEmployees(page,size));
     }
 
     @GetMapping("/employees/{id}")
