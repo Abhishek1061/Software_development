@@ -31,10 +31,10 @@ public class EmployeeController {
         this.employeeService = employeeService;
     }
 
-    @GetMapping ("/employees")
-    public ResponseEntity<List<EmployeeResponseDto>> getAllEmployees(){
-        return ResponseEntity.ok(employeeService.getAllEmployees());
-    }
+    // @GetMapping ("/employees")
+    // public ResponseEntity<List<EmployeeResponseDto>> getAllEmployees(){
+    //     return ResponseEntity.ok(employeeService.getAllEmployees());
+    // }
 
     @GetMapping ("/employees")
     public ResponseEntity<Page<EmployeeResponseDto>> getAllEmployees(@RequestParam int page, @RequestParam  int size){
