@@ -5,6 +5,7 @@ import java.util.stream.Collectors;
 
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import com.example.EmployeeManagement.dto.EmployeeRequestDto;
@@ -28,8 +29,8 @@ public class EmployeeService {
                 .collect(Collectors.toList());
     }
 
-    public Page<EmployeeResponseDto> getAllEmployees(int page, int size) {
-        Page<Employee> employeePage = employeeRepository.findAll(PageRequest.of(page, size));
+    public Page<EmployeeResponseDto> getAllEmployees(int page, int size, String sortBy) {
+        Page<Employee> employeePage = employeeRepository.findAll(PageRequest.of(page, size, Sort.by(sortBy)));
         return employeePage.map(this::mapToResponseDto);
     }
 
