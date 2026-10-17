@@ -67,7 +67,6 @@ public class EmployeeService {
     private EmployeeResponseDto mapToResponseDto(Employee employee) {
 
         EmployeeResponseDto dto = new EmployeeResponseDto();
-
         dto.setId(employee.getId());
         dto.setName(employee.getName());
         dto.setEmail(employee.getEmail());
