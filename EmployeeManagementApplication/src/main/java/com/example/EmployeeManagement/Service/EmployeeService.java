@@ -77,4 +77,11 @@ public class EmployeeService {
         return dto;
     }
 
+    public List<EmployeeResponseDto>  getEmployeesByDepartment(String department){
+            return employeeRepository.findByDepartment(department)
+            .stream()
+            .map(this::mapToResponseDto)
+            .collect(Collectors.toList());
+    }
+
 }
