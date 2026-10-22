@@ -65,4 +65,10 @@ public class EmployeeController {
         return ResponseEntity.noContent().build();
     }
 
+    @GetMapping("/employees/department/{department}")
+    public ResponseEntity<List<EmployeeResponseDto>> getEmployeesByDepartment(@PathVariable String department){
+        List<EmployeeResponseDto> employees =  employeeService.getEmployeesByDepartment(department);
+        return ResponseEntity.ok(employees);
+    }
+
 }
