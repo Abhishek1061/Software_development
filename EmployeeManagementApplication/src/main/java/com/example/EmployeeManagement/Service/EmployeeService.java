@@ -29,8 +29,9 @@ public class EmployeeService {
                 .collect(Collectors.toList());
     }
 
-    public Page<EmployeeResponseDto> getAllEmployees(int page, int size, String sortBy) {
-        Page<Employee> employeePage = employeeRepository.findAll(PageRequest.of(page, size, Sort.by(sortBy)));
+    public Page<EmployeeResponseDto> getAllEmployees(int page, int size, String sortBy, String direction) {
+        Sort sort = direction.equalsIgnoreCase("desc") ? Sort.by(sortBy).descending() : Sort.by(sortBy).ascending();
+        Page<Employee> employeePage = employeeRepository.findAll(PageRequest.of(page, size, sort));
         return employeePage.map(this::mapToResponseDto);
     }
 

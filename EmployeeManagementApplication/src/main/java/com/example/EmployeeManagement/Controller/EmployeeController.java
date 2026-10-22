@@ -37,8 +37,8 @@ public class EmployeeController {
     // }
 
     @GetMapping ("/employees")
-    public ResponseEntity<Page<EmployeeResponseDto>> getAllEmployees(@RequestParam int page, @RequestParam  int size, @RequestParam String sortBy){
-        return ResponseEntity.ok(employeeService.getAllEmployees(page,size,sortBy));
+    public ResponseEntity<Page<EmployeeResponseDto>> getAllEmployees(@RequestParam int page, @RequestParam  int size, @RequestParam String sortBy, @RequestParam String direction){
+        return ResponseEntity.ok(employeeService.getAllEmployees(page,size,sortBy,direction));
     }
 
     @GetMapping("/employees/{id}")
