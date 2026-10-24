@@ -97,8 +97,15 @@ public class EmployeeService {
 
     }
 
-    public List<EmployeeResponseDto> getEmployeeByName(String name){
+    public List<EmployeeResponseDto> getEmployeesByName(String name){
         return employeeRepository.findByNameContaining(name)
+            .stream()
+            .map(this::mapToResponseDto)
+            .collect(Collectors.toList());
+    }
+
+    public List<EmployeeResponseDto> getEmployeesByDepartmentAndSalary(String department, Double salary){
+        return employeeRepository.findByDepartmentAndSalary(department, salary)
             .stream()
             .map(this::mapToResponseDto)
             .collect(Collectors.toList());

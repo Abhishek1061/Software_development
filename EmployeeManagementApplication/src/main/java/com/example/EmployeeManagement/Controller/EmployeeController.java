@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.example.EmployeeManagement.dto.EmployeeRequestDto;
 import com.example.EmployeeManagement.dto.EmployeeResponseDto;
+import com.example.EmployeeManagement.repository.EmployeeRepository;
 import com.example.EmployeeManagement.service.EmployeeService;
 
 import jakarta.validation.Valid;
@@ -68,6 +69,18 @@ public class EmployeeController {
     @GetMapping("/employees/department/{department}")
     public ResponseEntity<List<EmployeeResponseDto>> getEmployeesByDepartment(@PathVariable String department){
         List<EmployeeResponseDto> employees =  employeeService.getEmployeesByDepartment(department);
+        return ResponseEntity.ok(employees);
+    }
+
+    @GetMapping("/employees/search")
+    public ResponseEntity<List<EmployeeResponseDto>> getEmployeesByName(@RequestParam String name){
+        List<EmployeeResponseDto> employees = employeeService.getEmployeesByName(name);
+        return ResponseEntity.ok(employees);
+    }
+
+    @GetMapping("/employees/filter")
+    public ResponseEntity<List<EmployeeResponseDto>> getEmpployeesByDepartmentAndSalary(@RequestParam String department, @RequestParam Double salary){
+        List<EmployeeResponseDto>  employees = employeeService.getEmployeesByDepartmentAndSalary(department, salary);
         return ResponseEntity.ok(employees);
     }
 }
