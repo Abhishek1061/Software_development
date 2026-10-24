@@ -1,6 +1,8 @@
 package com.example.EmployeeManagement.service;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collector;
 import java.util.stream.Collectors;
 
 import org.springframework.data.domain.Page;
@@ -78,7 +80,25 @@ public class EmployeeService {
     }
 
     public List<EmployeeResponseDto>  getEmployeesByDepartment(String department){
-            return employeeRepository.findByDepartment(department)
+        return employeeRepository.findByDepartment(department)
+            .stream()
+            .map(this::mapToResponseDto)
+            // .map(employee -> (maptoResponseDto(employee)))  // Equalent to the above code snippet
+            .collect(Collectors.toList());
+
+            /*Equvalent code snippent pf above stream code */
+        // List<Employee> employees = employeeRepository.findByDepartment( department);
+        // List<EmployeeResponseDto> dtoList = new ArrayList<>();
+        // for(Employee employee : employees){
+        //     dtoList.add(
+        //     mapToResponseDto(employee));
+        // }
+        // return dtoList;
+
+    }
+
+    public List<EmployeeResponseDto> getEmployeeByName(String name){
+        return employeeRepository.findByNameContaining(name)
             .stream()
             .map(this::mapToResponseDto)
             .collect(Collectors.toList());
