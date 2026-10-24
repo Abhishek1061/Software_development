@@ -70,5 +70,4 @@ public class EmployeeController {
         List<EmployeeResponseDto> employees =  employeeService.getEmployeesByDepartment(department);
         return ResponseEntity.ok(employees);
     }
-
 }
