@@ -41,5 +41,12 @@ public interface EmployeeRepository extends JpaRepository<Employee, Integer> {
     )
     List<Employee> getEmployeesSalaryLessThan(@Param("salary") Double salary);
 
+    @Query 
+    (
+        value = "SELECT * FROM employees e WHERE e.department = :department AND e.salary > :salary",
+        nativeQuery = true
+    )
+    List<Employee> getEmployeesByDepartmentAndSalary(@Param("department") String department, @Param("salary") Double salary);
+
 }
 
