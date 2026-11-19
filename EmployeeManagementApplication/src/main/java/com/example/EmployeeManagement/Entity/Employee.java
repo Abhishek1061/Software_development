@@ -3,6 +3,8 @@ package com.example.EmployeeManagement.entity;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
 import jakarta.persistence.GenerationType;
 
 @Entity 
@@ -13,7 +15,11 @@ public class Employee{
     private int id;
     private String name;
     private String email;
-    private String department;
+
+    @ManyToOne 
+    @JoinColumn(name = "department_id")
+    private Department department;
+
     private Double salary;
 
     // Constructors
