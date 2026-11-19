@@ -26,7 +26,7 @@ public class Employee{
     public Employee() {
     }
 
-    public Employee(String name, String email, String department, Double salary) {
+    public Employee(String name, String email, Department department, Double salary) {
         this.name = name;
         this.email = email;
         this.department = department;
@@ -58,11 +58,11 @@ public class Employee{
         this.email = email;
     }
 
-    public String getDepartment() {
+    public Department getDepartment() {
         return department;
     }
 
-    public void setDepartment(String department) {
+    public void setDepartment(Department department) {
         this.department = department;
     }
 
