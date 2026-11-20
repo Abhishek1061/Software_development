@@ -1,5 +1,7 @@
 package com.example.EmployeeManagement.entity;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
@@ -16,6 +18,7 @@ public class Employee{
     private String name;
     private String email;
 
+    @JsonBackReference
     @ManyToOne 
     @JoinColumn(name = "department_id")
     private Department department;
