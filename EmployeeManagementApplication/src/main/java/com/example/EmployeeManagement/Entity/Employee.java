@@ -19,8 +19,6 @@ public class Employee{
     private String email;
 
     @JsonBackReference
-
-    
     @ManyToOne 
     @JoinColumn(name = "department_id")
     private Department department;
