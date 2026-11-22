@@ -14,7 +14,7 @@ public class EmployeeRequestDto {
     @Email 
     private String email;
     
-    @NotBlank 
+    @NotNull  
     private Long departmentId;
 
     @NotNull
@@ -49,11 +49,11 @@ public class EmployeeRequestDto {
         this.email = email;
     }
 
-    public Long getdepartmentId() {
+    public Long getDepartmentId() {
         return departmentId;
     }
 
-    public void setdepartmentId(Long departmentIdId) {
+    public void setDepartmentId(Long departmentId) {
         this.departmentId = departmentId;
     }
 

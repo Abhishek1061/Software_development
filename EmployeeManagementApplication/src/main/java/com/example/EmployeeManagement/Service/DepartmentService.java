@@ -22,7 +22,7 @@ public class DepartmentService {
         this.departmentRepository = departmentRepository;
     }
 
-    public Department createDepartment(Department department) {
+    public Department createDepartment(Department department) {                                                                                            
         return departmentRepository.save(department);
     }
 
