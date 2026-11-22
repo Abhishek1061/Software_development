@@ -1,7 +1,5 @@
 package com.example.EmployeeManagement.dto;
 
-import com.example.EmployeeManagement.entity.Department;
-
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
@@ -17,7 +15,7 @@ public class EmployeeRequestDto {
     private String email;
     
     @NotBlank 
-    private Department department;
+    private Long departmentId;
 
     @NotNull
     @Positive  
@@ -27,10 +25,10 @@ public class EmployeeRequestDto {
     public EmployeeRequestDto() {
     }
 
-    public EmployeeRequestDto(String name, String email, Department department, Double salary) {
+    public EmployeeRequestDto(String name, String email, Long departmentId, Double salary) {
         this.name = name;
         this.email = email;
-        this.department = department;
+        this.departmentId = departmentId;
         this.salary = salary;
     }
 
@@ -51,12 +49,12 @@ public class EmployeeRequestDto {
         this.email = email;
     }
 
-    public Department getDepartment() {
-        return department;
+    public Long getdepartmentId() {
+        return departmentId;
     }
 
-    public void setDepartment(Department department) {
-        this.department = department;
+    public void setdepartmentId(Long departmentIdId) {
+        this.departmentId = departmentId;
     }
 
     public Double getSalary() {
