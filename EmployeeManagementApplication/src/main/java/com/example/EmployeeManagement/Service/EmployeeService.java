@@ -1,8 +1,6 @@
 package com.example.EmployeeManagement.service;
 
-import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.Collector;
 import java.util.stream.Collectors;
 
 import org.springframework.data.domain.Page;
@@ -12,6 +10,7 @@ import org.springframework.stereotype.Service;
 
 import com.example.EmployeeManagement.dto.EmployeeRequestDto;
 import com.example.EmployeeManagement.dto.EmployeeResponseDto;
+import com.example.EmployeeManagement.entity.Department;
 import com.example.EmployeeManagement.entity.Employee;
 import com.example.EmployeeManagement.repository.EmployeeRepository;
 import com.example.EmployeeManagement.exceptions.ResourceNotFoundException;
@@ -20,9 +19,11 @@ import com.example.EmployeeManagement.exceptions.ResourceNotFoundException;
 public class EmployeeService {
 
     private final EmployeeRepository employeeRepository;
+    private final DepartmentService departmentService;
 
-    public EmployeeService(EmployeeRepository employeeRepository) {
+    public EmployeeService(EmployeeRepository employeeRepository, DepartmentService departmentService) {
         this.employeeRepository = employeeRepository;
+        this.departmentService = departmentService;
     }
 
     public List<EmployeeResponseDto> getAllEmployees() {
@@ -45,9 +46,10 @@ public class EmployeeService {
 
     public EmployeeResponseDto createEmployee(EmployeeRequestDto employeeDto) {
         Employee employee = new Employee();
+        Department department = departmentService.getDepartmentById(employeeDto.getDepartmentId());
         employee.setName(employeeDto.getName());
         employee.setEmail(employeeDto.getEmail());
-        employee.setDepartment(employeeDto.getDepartment());
+        employee.setDepartment(department);
         employee.setSalary(employeeDto.getSalary());
         Employee savedEmployee = employeeRepository.save(employee);
        return mapToResponseDto(savedEmployee);
@@ -55,9 +57,10 @@ public class EmployeeService {
 
     public EmployeeResponseDto updateEmployee(Integer id, EmployeeRequestDto employeeDetails) {
         Employee employee = employeeRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException("Employee not found with id: " + id));
+        Department department = departmentService.getDepartmentById(employeeDetails.getDepartmentId());
         employee.setName(employeeDetails.getName());
         employee.setEmail(employeeDetails.getEmail());
-        employee.setDepartment(employeeDetails.getDepartment());
+        employee.setDepartment(department);
         employee.setSalary(employeeDetails.getSalary());
         return mapToResponseDto(employeeRepository.save(employee));
     }
@@ -73,7 +76,7 @@ public class EmployeeService {
         dto.setId(employee.getId());
         dto.setName(employee.getName());
         dto.setEmail(employee.getEmail());
-        dto.setDepartment(employee.getDepartment());
+        dto.setDepartmentName(employee.getDepartment().getName());
         dto.setSalary(employee.getSalary());
 
         return dto;

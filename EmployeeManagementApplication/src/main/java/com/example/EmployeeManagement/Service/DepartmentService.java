@@ -2,15 +2,9 @@ package com.example.EmployeeManagement.service;
 
 
 import java.util.List;
-
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
-
-import com.example.EmployeeManagement.dto.EmployeeRequestDto;
-import com.example.EmployeeManagement.dto.EmployeeResponseDto;
 import com.example.EmployeeManagement.entity.Department;
-import com.example.EmployeeManagement.entity.Employee;
+import com.example.EmployeeManagement.exceptions.ResourceNotFoundException;
 import com.example.EmployeeManagement.repository.DepartmentRepository;
 
 @Service 
@@ -28,6 +22,11 @@ public class DepartmentService {
 
     public List<Department> getAllDepartments() {
         return departmentRepository.findAll();
+    }
+
+    public Department getDepartmentById(Long id) {
+        return departmentRepository.findById(id)
+                .orElseThrow(() -> new ResourceNotFoundException("Department not found with id: " + id));
     }
     
 }

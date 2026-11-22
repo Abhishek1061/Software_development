@@ -1,24 +1,22 @@
 package com.example.EmployeeManagement.dto;
 
-import com.example.EmployeeManagement.entity.Department;
-
 public class EmployeeResponseDto {
 
     private int id;
     private String name;
     private String email;
-    private Department department;
+    private String departmentName;
     private Double salary;
 
     // Constructors
     public EmployeeResponseDto() {
     }
 
-    public EmployeeResponseDto(int id, String name, String email, Department department, Double salary) {
+    public EmployeeResponseDto(int id, String name, String email, String departmentName, Double salary) {
         this.id = id;
         this.name = name;
         this.email = email;
-        this.department = department;
+        this.departmentName = departmentName;
         this.salary = salary;
     }
 
@@ -47,12 +45,12 @@ public class EmployeeResponseDto {
         this.email = email;
     }
 
-    public Department getDepartment() {
-        return department;
+    public String getDepartmentName() {
+        return departmentName;
     }
 
-    public void setDepartment(Department department) {
-        this.department = department;
+    public void setDepartmentName(String departmentName) {
+        this.departmentName = departmentName;
     }
 
     public Double getSalary() {
