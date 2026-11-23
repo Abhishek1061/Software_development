@@ -71,14 +71,12 @@ public class EmployeeService {
     
 
     private EmployeeResponseDto mapToResponseDto(Employee employee) {
-
         EmployeeResponseDto dto = new EmployeeResponseDto();
         dto.setId(employee.getId());
         dto.setName(employee.getName());
         dto.setEmail(employee.getEmail());
         dto.setDepartmentName(employee.getDepartment().getName());
         dto.setSalary(employee.getSalary());
-
         return dto;
     }
 
@@ -113,5 +111,4 @@ public class EmployeeService {
             .map(this::mapToResponseDto)
             .collect(Collectors.toList());
     }
-
 }
